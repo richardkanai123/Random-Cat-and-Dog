@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Cats&Dogs</title>
+
+
+    <style>
+        body{
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(62, 172, 12, 0.911);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        body h1{
+            width: 70%;
+            font-size: 2em;
+            color: rgb(6, 86, 235);
+        }
+        .container{
+            padding: 1em;
+            height:70%;
+            width:80%;
+            background-color: rgba(219, 235, 235, 0.726);
+            box-shadow: 0 0 1em 0.5em rgba(136, 131, 131, 0.842);
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 1em;
+        }
+
+        .container .img{
+            width: 100%;
+            height: 70%;
+            border: bisque solid;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .buttons{
+            width: 100%;
+            height: 25%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        button{
+            background-color: rgb(20, 6, 155);
+            width: 40%;
+            height: 50%;
+            color: lawngreen;
+            pointer-events: all;
+            cursor: pointer;
+            border-radius: 2em;
+            font-size: 1em;
+            margin: 0.8em;
+        }
+
+        button:hover{
+            background-color: rgb(99, 184, 13);
+            color: rgb(33, 15, 201);
+        }
+    </style>
+</head>
+<body>
+    <h1>Dog and Cat Generator</h1>
+    <div class="container">
+        <div class="img">
+
+        </div>
+       <div class="buttons">
+        <button class="catBtn"> Cat</button>
+        <button class="dogBtn"> Dog</button>
+       </div>
+       <h4>Press to see</h4>
+    </div>
+
+
+    <script>
+
+        const catBtn = document.querySelector('.catBtn')
+        const dogBtn = document.querySelector('.dogBtn')
+        const img = document.querySelector('.img')
+
+
+
+    catBtn.addEventListener('click', ()=>{
+        var settings = {
+            "url": "https://api.thecatapi.com/v1/images/search?format=json",
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json",
+                "x-api-key": "DEMO-API-KEY"
+            },
+        };
+
+        $.ajax(settings).done(function (response) {
+        imagereturned = response[0].url;
+        img.style.backgroundImage = `url(${imagereturned})`;
+        });
+    })
+
+
+    dogBtn.addEventListener('click', ()=>{
+
+    fetch('https://dog.ceo/api/breeds/image/random')
+    .then(response => response.json())
+    .then(response => {
+        let Dog = response.message;
+        img.style.backgroundImage = `url(${Dog})`
+
+    });
+
+    })
+
+    </script>
+    
+</body>
+</html>
